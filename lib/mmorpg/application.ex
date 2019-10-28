@@ -9,6 +9,8 @@ defmodule Mmorpg.Application do
     children = [
       # Starts a worker by calling: Mmorpg.Worker.start_link(arg)
       # {Mmorpg.Worker, arg}
+      Mmorpg.Repo,
+      Mmorpg.Controller
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

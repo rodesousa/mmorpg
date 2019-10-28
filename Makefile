@@ -3,3 +3,8 @@ postgres:
 
 rm:
 	@docker rm -f tactical
+
+migrate:
+	@mix ecto.migrate
+db:
+	@mix ecto.create
