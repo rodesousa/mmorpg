@@ -9,7 +9,16 @@ defmodule Mmorpg.Front.LoginScreen do
     2- Nouveau ?
     """)
     |> String.trim("\n")
-    |> begining
+    |> case do
+      1 ->
+        begining(:signin)
+
+      2 ->
+        begining(:create)
+
+      _ ->
+        IO.puts("FUCK !")
+    end
   end
 
   def get_login_password do
@@ -25,7 +34,7 @@ defmodule Mmorpg.Front.LoginScreen do
   end
 
   # deja un acompte
-  defp begining("1") do
+  defp begining(:signin) do
     with {name, password} <- get_login_password,
          player <- get_player(name) do
       player
@@ -41,7 +50,7 @@ defmodule Mmorpg.Front.LoginScreen do
   end
 
   # nouveau
-  defp begining("2") do
+  defp begining(:create) do
     {login, password} = get_login_password
 
     login
@@ -57,10 +66,6 @@ defmodule Mmorpg.Front.LoginScreen do
     end
 
     :ignore
-  end
-
-  defp begining(_) do
-    IO.puts("FUCK !")
   end
 
   def get_player(name) do
