@@ -9,13 +9,15 @@ defmodule Mmorpg.Application do
     children = [
       # Starts a worker by calling: Mmorpg.Worker.start_link(arg)
       # {Mmorpg.Worker, arg}
-      Mmorpg.Repo,
-      Mmorpg.Controller
+      Mmorpg.Repo
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Mmorpg.Supervisor]
-    Supervisor.start_link(children, opts)
+    # Supervisor.start_link(children, opts)
+    Mmorpg.Start.init()
+    # Mmorpg.Front.LoginScreen.display()
+    # IO.gets("aze")
   end
 end

@@ -12,7 +12,7 @@ defmodule Mmorpg.Front.LoginScreen do
     |> begining
   end
 
-  def get do
+  def get_login_password do
     login =
       IO.gets("Login: ")
       |> String.trim("\n")
@@ -26,8 +26,8 @@ defmodule Mmorpg.Front.LoginScreen do
 
   # deja un acompte
   defp begining("1") do
-    with {name, password} <- get,
-         player <- one(name) do
+    with {name, password} <- get_login_password,
+         player <- get_player(name) do
       player
       |> Enum.empty?()
       |> case do
@@ -42,9 +42,10 @@ defmodule Mmorpg.Front.LoginScreen do
 
   # nouveau
   defp begining("2") do
-    {name, password} = get
+    {login, password} = get_login_password
 
-    one(name)
+    login
+    |> get_player()
     |> Enum.empty?()
     |> case do
       true ->
@@ -52,7 +53,7 @@ defmodule Mmorpg.Front.LoginScreen do
         |> Repo.insert()
 
       false ->
-        IO.puts("Il y a deja un compte avec #{name}")
+        IO.puts("Il y a deja un compte avec #{login}")
     end
 
     :ignore
@@ -62,13 +63,13 @@ defmodule Mmorpg.Front.LoginScreen do
     IO.puts("FUCK !")
   end
 
-  def one(name) do
-    from(p in Player, select: p.name, where: p.name == ^login)
+  def get_player(name) do
+    from(p in Player, select: p.name, where: p.name == ^name)
     |> Repo.one!()
   end
 
-  def one(name, password) do
-    from(p in Player, select: p.name, where: p.name == ^login, where: p.password == ^password)
+  def get_player(name, password) do
+    from(p in Player, select: p.name, where: p.name == ^name, where: p.password == ^password)
     |> Repo.one!()
   end
 end

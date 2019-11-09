@@ -7,7 +7,7 @@ defmodule Mmorpg.Schema.Character do
     field(:stamina, :integer)
     field(:atk, :integer)
     field(:vit, :integer)
-    field(:def, :integer)
+    field(:defense, :integer)
     field(:moves, :map)
     field(:buffs, :map)
     belongs_to(:player, Mmorpg.Schema.Player)

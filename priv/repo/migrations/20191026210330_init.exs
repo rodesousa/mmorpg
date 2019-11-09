@@ -13,7 +13,7 @@ defmodule Mmorpg.Repo.Migrations.Init do
       add(:stamina, :integer)
       add(:atk, :integer)
       add(:vit, :integer)
-      add(:def, :integer)
+      add(:defense, :integer)
       add(:moves, :map)
       add(:buffs, :map)
       add(:player, references(:player))
