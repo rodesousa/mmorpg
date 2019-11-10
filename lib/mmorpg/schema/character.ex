@@ -1,5 +1,6 @@
 defmodule Mmorpg.Schema.Character do
   use Ecto.Schema
+  import Ecto.Query
 
   schema "character" do
     field(:name, :string)
@@ -35,8 +36,16 @@ defmodule Mmorpg.Schema.Character do
     }
   end
 
-  def character(_) do
-    IO.puts("Pas le temps pour les blagues")
-    System.halt(0)
+  @doc """
+  returns characters by a player
+  """
+  @spec get_characters(Mmorpg.Schema.Player.t()) :: list
+  def get_characters(%{id: id}) do
+    from(
+      c in Character,
+      join: p in assoc(c, :player),
+      where: p.id == ^id,
+      preload: [players: p]
+    )
   end
 end

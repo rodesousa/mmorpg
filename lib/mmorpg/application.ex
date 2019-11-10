@@ -15,7 +15,7 @@ defmodule Mmorpg.Application do
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Mmorpg.Supervisor]
-    # Supervisor.start_link(children, opts)
+    Supervisor.start_link(children, opts)
     Mmorpg.Start.init()
     # Mmorpg.Front.LoginScreen.display()
     # IO.gets("aze")
