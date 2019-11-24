@@ -1,7 +1,7 @@
 defmodule Mmorpg.Front.CreateCharacter do
   alias Mmorpg.Controller.Character
 
-  def display() do
+  def display(player_id) do
     with name <- IO.gets("Nom du perso ? "),
          patern <-
            IO.gets("""
@@ -10,7 +10,7 @@ defmodule Mmorpg.Front.CreateCharacter do
            2- Défensive
            """) do
       patern
-      |> Character.create_character(name)
+      |> Character.create_character(name, player_id)
     end
   end
 end

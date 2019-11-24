@@ -1,53 +1,43 @@
 defmodule Mmorpg.Controller.Player do
+  @moduledoc """
+  Controller Player
+
+  All of actions about Player have to pass here
+  If u prefere, it's a reverse proxy between Model <-> View
+  """
   alias Mmorpg.Repo
   alias Mmorpg.Schema.Player, as: SchemaPlayer
 
   @doc """
   player signin
   """
-  def begining(:signin) do
-    with {name, password} <- get_login_password,
-         player <- Player.get_player(name) do
-      player
-      |> Enum.empty?()
-      |> case do
-        true ->
-          IO.puts("login/mot de passe faux !")
+  @spec get_player(atom, String.t(), String.t()) :: {:ok | :error, String.t()}
+  def get_player(:signin, name, password) do
+    player = SchemaPlayer.get_player(name)
 
-        false ->
-          IO.puts("Let's go #{Enum.fetch!(player, 0).name}")
-      end
+    player
+    |> Enum.empty?()
+    |> case do
+      true -> {:error, "login/mot de passe faux !"}
+      false -> {:ok, "Let's go #{Enum.fetch!(player, 0).name}"}
     end
   end
 
   @doc """
   New player
   """
-  def begining(:create) do
-    {login, password} = get_login_password
-
-    login
-    |> Player.get_player()
-    |> Enum.empty?()
+  def get_player(:create, name, password) do
+    name
+    |> SchemaPlayer.get_player()
     |> case do
-      true ->
-        %SchemaPlayer{name: login, password: password}
+      nil ->
+        %SchemaPlayer{name: name, password: password}
         |> Repo.insert()
 
-      false ->
-        IO.puts("Il y a deja un compte avec #{login}")
+        {:ok, "Player #{name} est crée"}
+
+      _ ->
+        {:error, "Il y a deja un compte avec #{name}"}
     end
-  end
-
-  defp get_login_password do
-    login =
-      IO.gets("Login: ")
-      |> String.trim("\n")
-
-    password =
-      Mix.Tasks.Hex.password_get("Password: ")
-      |> String.trim("\n")
-
-    {login, password}
   end
 end

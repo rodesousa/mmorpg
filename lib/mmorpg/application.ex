@@ -16,8 +16,6 @@ defmodule Mmorpg.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Mmorpg.Supervisor]
     Supervisor.start_link(children, opts)
-    Mmorpg.Start.init()
-    # Mmorpg.Front.LoginScreen.display()
-    # IO.gets("aze")
+    # Mmorpg.Start.init()
   end
 end
