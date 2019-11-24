@@ -4,7 +4,6 @@ defmodule Mmorpg.Schema.Player do
   """
   use Ecto.Schema
   import Ecto.Query
-  alias Mmorpg.Repo
 
   schema "player" do
     field(:name, :string)
@@ -14,11 +13,9 @@ defmodule Mmorpg.Schema.Player do
 
   def get_player(name) do
     from(p in __MODULE__, where: p.name == ^name)
-    |> Repo.one()
   end
 
   def get_player(name, password) do
     from(p in __MODULE__, select: p.name, where: p.name == ^name, where: p.password == ^password)
-    |> Repo.one!()
   end
 end

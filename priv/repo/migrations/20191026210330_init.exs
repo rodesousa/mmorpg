@@ -16,7 +16,7 @@ defmodule Mmorpg.Repo.Migrations.Init do
       add(:defense, :integer)
       add(:moves, :map)
       add(:buffs, :map)
-      add(:player, references(:player))
+      add(:player_id, references(:player))
     end
   end
 end
