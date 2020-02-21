@@ -1,4 +1,6 @@
-defmodule Mmorpg.Schema.Character do
+defmodule Mmorpg.Model.Character do
+  @moduledoc false
+
   use Ecto.Schema
   import Ecto.Query
   import Ecto.Changeset

@@ -5,7 +5,7 @@ defmodule Mmorpg.Controller.Character do
   All of actions about Character have to pass here
   """
 
-  alias Mmorpg.Schema.Character, as: SchemaCharacter
+  alias Mmorpg.Model.Character, as: ModelCharacter
   alias Mmorpg.Repo
 
   @doc """
@@ -17,7 +17,7 @@ defmodule Mmorpg.Controller.Character do
       patern
       |> get_character(name)
 
-    SchemaCharacter.get_characters(player)
+    ModelCharacter.get_characters(player)
     |> Repo.one()
     |> case do
       nil ->
@@ -30,7 +30,7 @@ defmodule Mmorpg.Controller.Character do
   end
 
   defp get_character(:def, name) do
-    %SchemaCharacter{
+    %ModelCharacter{
       name: name,
       stamina: 10,
       atk: 4,
@@ -41,7 +41,7 @@ defmodule Mmorpg.Controller.Character do
   end
 
   defp get_character(:off, name) do
-    %SchemaCharacter{
+    %ModelCharacter{
       name: name,
       stamina: 10,
       atk: 3,

@@ -2,7 +2,7 @@ postgres: rm
 	@docker run -itd --name tactical -p 5432:5432 postgres:latest
 
 rm:
-	@docker rm -f tactical 
+	@docker rm -f tactical | echo true
 
 ecto:
 	@mix ecto.create
@@ -10,3 +10,6 @@ ecto:
 
 init:
 	@mix test --only init
+
+mix:
+	@MIX_ENV=test iex -S mix

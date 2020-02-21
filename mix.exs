@@ -24,7 +24,7 @@ defmodule Mmorpg.MixProject do
     [
       {:ecto_sql, "~> 3.2"},
       {:postgrex, ">= 0.0.0"},
-
+      {:opus, "~> 0.6"},
       # code quality
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
       {:credo, "~> 1.1.0", only: [:dev, :test], runtime: false}
